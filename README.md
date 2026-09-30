@@ -1,7 +1,5 @@
 # Financial Document Agent
 
-[![CI](https://github.com/AsrithaReddy-123/financial-document-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/AsrithaReddy-123/financial-document-agent/actions/workflows/ci.yml)
-
 Ingests synthetic invoices as text, text-layer PDFs, or PNG images. It extracts vendor, invoice number, date, totals, and line items, and routes low-confidence fields to review. A LangGraph workflow classifies, extracts, checks duplicates and tax or total rules, and states what it found. Retrieval is hybrid BM25 plus sentence embeddings.
 
 ## Measured results
@@ -16,7 +14,7 @@ Ingests synthetic invoices as text, text-layer PDFs, or PNG images. It extracts 
 | Sent to human review | 5.5% |
 | Recall@5 | 0.955 |
 
-Field accuracy is the clean subset after a PDF text-layer round trip. Image OCR is a separate path: `app/ocr.py` uses Tesseract, and CI renders a PNG and checks that the vendor and invoice number are read back. The retrieval and extraction artifact is [`evaluation/results/benchmark.json`](evaluation/results/benchmark.json).
+Field accuracy is the clean subset after a PDF text-layer round trip. Image OCR is a separate path: `app/ocr.py` uses Tesseract. The retrieval and extraction artifact is [`evaluation/results/benchmark.json`](evaluation/results/benchmark.json).
 
 ## Architecture
 
