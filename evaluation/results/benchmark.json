@@ -1,0 +1,12 @@
+{
+  "project": "financial-document-agent",
+  "documents": 5000,
+  "clean_field_accuracy": 1.0,
+  "anomaly_precision": 1.0,
+  "labeled_anomalies": 498,
+  "review_rate": 0.055,
+  "retrieval_questions": 200,
+  "recall@5": 0.955,
+  "embedder": "sentence-transformers/all-MiniLM-L6-v2",
+  "notes": "Synthetic invoices. Field accuracy is measured on the clean subset after a PDF text-layer round trip. Anomaly precision compares detector flags with generator labels. Image OCR is not run in this benchmark; digital PDFs use the text layer."
+}
