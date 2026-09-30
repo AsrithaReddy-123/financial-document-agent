@@ -1,0 +1,15 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: invoices
+    ports:
+      - "5432:5432"
+  api:
+    build: .
+    environment:
+      EMBEDDER: hash
+      CORPUS_SIZE: "200"
+    ports:
+      - "8000:8000"
