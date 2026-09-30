@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 
 from app.agents import build_graph
 from app.documents import read_pdf_text
+from app.ocr import ocr_png
 from app.retrieval import InvoiceRetriever, load_embedder
 from evaluation.dataset import build_documents
 
@@ -18,6 +19,7 @@ class IngestRequest(BaseModel):
     filename: str
     text: str | None = None
     pdf_base64: str | None = None
+    image_base64: str | None = None
 
 
 class AskRequest(BaseModel):
@@ -51,6 +53,10 @@ def create_app(embedder_name: str | None = None, corpus_size: int | None = None)
             import base64
 
             text = read_pdf_text(base64.b64decode(body.pdf_base64))
+        elif body.image_base64:
+            import base64
+
+            text = ocr_png(base64.b64decode(body.image_base64))
         result = app.state.graph.invoke({"text": text})
         record = {"filename": body.filename, **result}
         app.state.docs.append({"id": body.filename, "text": text, "vendor": result.get("extraction", {}).get("vendor")})
